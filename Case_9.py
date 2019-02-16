@@ -4,11 +4,17 @@ from random import *
 someone = 'Кто-то хочет купить зерно по'
 bush = 'золотых за бушель. Сколько зерна продать?'
 to_people = 'Сколько зерна отдаём народу?'
+suggestion = 'Мой король, сколько зерна выделить на посев?'
+lack = 'У вас недостаточно зерна!' \
+       'Попробуйте ввести меньшее значение.'
+next = 'Идём дальше? Для продолжения нажмите "y"'
 
 '''Продаем зерно'''
+
+
 def sale():
-    price = randint (20, 30)
-    print ('{} {} {}'.format(someone, price, bush))
+    price = randint(20, 30)
+    print('{} {} {}'.format(someone, price, bush))
     number = (input())
     while True:
         try:
@@ -27,6 +33,7 @@ def sale():
             number = input('Введите корректное число:')
     print_base()
 
+
 def print_base():
     for key in base.keys():
         print(key, end ='  ')
@@ -36,9 +43,38 @@ def print_base():
 
     print()
 
+
+'''Засеиваем зерно'''
+
+
+def seed():
+    print(suggestion)
+    grain_seed = int(input())
+    print(grain_seed)
+    while True:
+            if 0 < int(grain_seed) <= int(base['Зерно']):
+                base['Зерно'] -= int(grain_seed)
+                break
+            elif int(grain_seed) > base['Зерно']:
+                print(lack)
+                grain_seed = input()
+
+            elif grain_seed == 0:
+                print(next)
+                next_step = input()
+                if next_step == 'y':
+                    break
+            else:
+                print('Пожалуйста, введите корректное значение!:')
+                grain_seed = input()
+
+
+
 '''Кормим народ'''
+
+
 def eat():
-    change = randint(5,15)
+    change = randint(5, 15)
     print('{}'.format(to_people))
     grain_to_people = input()
     while True:
@@ -57,7 +93,6 @@ def eat():
             else:
                 grain_to_people = input('Введите корректное число:')
 
-
         except ValueError:
             grain_to_people = input('Введите корректное число:')
 
@@ -65,21 +100,21 @@ def eat():
             grain_to_people = input('Введите корректное число:')
 
 
-
 def main():
-    while base['Смута']<50 and base['Зерно']>0 and base['Народ']>0:
+    while base['Смута'] < 50 and base['Зерно'] > 0 and base['Народ'] > 0:
         print_base()
         sale()
+        seed()
         eat()
-        base['Год']+=1
-    if base['Смута']>=50:
+        base['Год'] += 1
+    if base['Смута'] >= 50:
         print('Вы проиграли, слишком много недовольных Вашим правлением')
 
-    elif base['Зерно']<=0:
+    elif base['Зерно'] <= 0:
         print('Вы проиграли, у вас больше не осталось зерна.')
 
-
-    elif base['Народ']<= 0:
+    elif base['Народ'] <= 0:
         print('Вы проиграли, Вы убили весь народ.')
+
 
 main()
