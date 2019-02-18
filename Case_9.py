@@ -18,13 +18,13 @@ def sale():
                 base['Казна'] += int(number * price)
                 break
             else:
-                number = input('Введите корректное число:')
+                number = input(exception)
 
         except KeyError:
-            number = input('Введите корректное число:')
+            number = input(exception)
 
         except ValueError:
-            number = input('Введите корректное число:')
+            number = input(exception)
     print_base()
 
 
@@ -59,7 +59,7 @@ def seed():
                 if next_step == 'y':
                     break
             else:
-                print('Пожалуйста, введите корректное значение!:')
+                print(exception)
                 grain_seed = input()
 
 
@@ -85,13 +85,13 @@ def eat():
 
                 break
             else:
-                grain_to_people = input('Введите корректное число:')
+                grain_to_people = input(exception)
 
         except ValueError:
-            grain_to_people = input('Введите корректное число:')
+            grain_to_people = input(exception)
 
         except KeyError:
-            grain_to_people = input('Введите корректное число:')
+            grain_to_people = input(exception)
 
 
 def main():
@@ -102,13 +102,13 @@ def main():
         eat()
         base['Год'] += 1
     if base['Смута'] >= 50:
-        print('Вы проиграли, слишком много недовольных Вашим правлением')
+        print(end1)
 
     elif base['Зерно'] <= 0:
-        print('Вы проиграли, у вас больше не осталось зерна.')
+        print(end2)
 
     elif base['Народ'] <= 0:
-        print('Вы проиграли, Вы убили весь народ.')
+        print(end3)
 
 
 main()
